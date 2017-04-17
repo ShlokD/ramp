@@ -50,3 +50,5 @@ before_script:
 script:
   - npm run lint
   - npm run test
+notifications:
+  email: false
