@@ -1,0 +1,15 @@
+{
+  "name": "ramp",
+  "productName": "Ramp Text Editor",
+  "version": "0.0.1",
+  "description": "Text Editor with writing stats",
+  "main": "./main.js",
+  "author": {
+    "name": "Shlok Desai",
+    "email": "shlokpdesai@gmail.com",
+    "url": "https://github.com/ShlokD"
+  },
+  "license": "MIT",
+  "dependencies": {
+  }
+}
