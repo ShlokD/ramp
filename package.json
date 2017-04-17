@@ -1,7 +1,7 @@
 {
   "name": "ramp",
   "productName": "Ramp Editor",
-  "version": "0.10.0",
+  "version": "0.0.1",
   "description": "Text Editor with writing stats",
   "main": "main.js",
   "scripts": {
