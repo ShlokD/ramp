@@ -1,7 +1,6 @@
 /* eslint global-require: 1, flowtype-errors/show-errors: 0 */
 // @flow
 import { app, BrowserWindow } from 'electron';
-import MenuBuilder from './menu';
 
 let mainWindow = null;
 
@@ -48,7 +47,8 @@ app.on('ready', async () => {
   mainWindow = new BrowserWindow({
     show: false,
     width: 1024,
-    height: 728
+    height: 728,
+    icon: `${__dirname}/resources/icon.ico`
   });
 
   mainWindow.loadURL(`file://${__dirname}/app.html`);
@@ -61,12 +61,10 @@ app.on('ready', async () => {
     }
     mainWindow.show();
     mainWindow.focus();
+    mainWindow.maximize();
   });
 
   mainWindow.on('closed', () => {
     mainWindow = null;
   });
-
-  const menuBuilder = new MenuBuilder(mainWindow);
-  menuBuilder.buildMenu();
 });
