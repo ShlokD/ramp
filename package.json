@@ -58,7 +58,7 @@
       "target": [
         "nsis"
       ],
-      "icon": "app/resources/icon.ico"
+      "icon": "resources/icon.ico"
     },
     "linux": {
       "target": [
