@@ -10,10 +10,13 @@ describe('App container', () => {
   });
 
   it('should render without crashing', () => {
-    expect(component).not.toBe(undefined);
+    const notExpectedValue = undefined;
+    expect(component).not.toBe(notExpectedValue);
   });
 
   it('should render a ramp text area', () => {
-    expect(component.find('RampTextArea').length).toBe(1);
+    const expectedValue = 1;
+    const actualValue = component.find('RampTextArea').length;
+    expect(actualValue).toBe(expectedValue);
   });
 });

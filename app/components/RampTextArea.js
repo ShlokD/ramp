@@ -1,17 +1,21 @@
 import React, { Component } from 'react';
+import get from 'lodash/get';
+
 import AppBar from 'material-ui/AppBar';
+
 
 import RampMenuDrawer from './RampMenuDrawer';
 
 import styles from '../styles/RampTextArea.css';
-import { OPEN, CLOSE } from '../constants/constants';
+import { OPEN, CLOSE } from '../constants/stringConstants';
 import { flipState } from '../utils/stateUtils';
 
 class RampTextArea extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      menuState: CLOSE
+      menuState: CLOSE,
+      text: ''
     };
     this.onMenuButtonClick = this.onMenuButtonClick.bind(this);
   }
@@ -22,18 +26,29 @@ class RampTextArea extends Component {
     });
   }
 
+  onTextChange(newText) {
+    this.setState({
+      text: newText
+    });
+  }
+
   render() {
+    const { menuState, text } = this.state;
     return (
       <div className={styles.rampTextAreaContainer}>
         <RampMenuDrawer
-          isOpen={this.state.menuState === OPEN}
+          isOpen={menuState === OPEN}
+          text={menuState === OPEN ? text : ''}
           onMenuItemClick={this.onMenuButtonClick}
         />
         <AppBar
           className={styles.rampAppBar}
           onLeftIconButtonTouchTap={(this.onMenuButtonClick)}
         />
-        <textarea className={styles.rampTextArea} />
+        <textarea
+          className={styles.rampTextArea}
+          onChange={(ev) => this.onTextChange(get(ev, 'target.value'))}
+        />
       </div>
     );
   }

@@ -1,0 +1,20 @@
+.rampWordStatsContainer {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  padding: 8px;
+}
+
+.rampWordStatsTitle {
+  font-size: 20px;
+  font-weight: 600;
+}
+
+.rampWordsWritten {
+  font-size: 18px;
+  font-weight: 500;
+}

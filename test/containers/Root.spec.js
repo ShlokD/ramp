@@ -10,6 +10,7 @@ describe('Root container', () => {
   });
 
   it('should render without crashing', () => {
-    expect(component).not.toBe(undefined);
+    const notExpectedValue = undefined;
+    expect(component).not.toBe(notExpectedValue);
   });
 });
