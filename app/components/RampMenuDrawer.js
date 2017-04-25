@@ -4,6 +4,7 @@ import MenuItem from 'material-ui/MenuItem';
 import noop from 'lodash/noop';
 import Divider from 'material-ui/Divider';
 import ContentClear from 'material-ui/svg-icons/content/clear';
+import Done from 'material-ui/svg-icons/action/done';
 import styles from '../styles/RampMenuDrawer.css';
 import { wordCounter, uniqueWordCounter } from '../utils/textUtils';
 
@@ -14,6 +15,8 @@ class RampMenuDrawer extends Component {
       wordsWritten: 0,
       uniqueWords: 0
     };
+
+    this.onSave = this.onSave.bind(this);
   }
 
   componentWillReceiveProps(props) {
@@ -22,6 +25,11 @@ class RampMenuDrawer extends Component {
       wordsWritten: wordCounter(text),
       uniqueWords: uniqueWordCounter(text)
     });
+  }
+
+  onSave() {
+    const { text, onSaveButtonClick } = this.props;
+    onSaveButtonClick(text);
   }
 
   render() {
@@ -35,6 +43,11 @@ class RampMenuDrawer extends Component {
           leftIcon={<ContentClear />}
           primaryText="Close"
           onTouchTap={onMenuItemClick}
+        />
+        <MenuItem
+          leftIcon={<Done />}
+          primaryText="Save"
+          onTouchTap={this.onSave}
         />
         <Divider />
         <MenuItem>
@@ -53,13 +66,15 @@ class RampMenuDrawer extends Component {
 RampMenuDrawer.propTypes = {
   isOpen: PropTypes.bool,
   text: PropTypes.string,
-  onMenuItemClick: PropTypes.func
+  onMenuItemClick: PropTypes.func,
+  onSaveButtonClick: PropTypes.func
 };
 
 RampMenuDrawer.defaultProps = {
   isOpen: false,
   text: '',
-  onMenuItemClick: noop
+  onMenuItemClick: noop,
+  onSaveButtonClick: noop
 };
 
 export default RampMenuDrawer;

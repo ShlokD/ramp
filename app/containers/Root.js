@@ -1,10 +1,15 @@
 // @flow
 import React, { Component } from 'react';
+import { Provider } from 'react-redux';
 import App from './App';
 
-class Root extends Component {
+export class Root extends Component {
   render() {
-    return <App />;
+    return (
+      <Provider store={this.props.store}>
+        <App />
+      </Provider>
+    );
   }
 }
 
