@@ -5,20 +5,22 @@ import noop from 'lodash/noop';
 import Divider from 'material-ui/Divider';
 import ContentClear from 'material-ui/svg-icons/content/clear';
 import styles from '../styles/RampMenuDrawer.css';
-import { wordCounter } from '../utils/textUtils';
+import { wordCounter, uniqueWordCounter } from '../utils/textUtils';
 
 class RampMenuDrawer extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      wordsWritten: 0
+      wordsWritten: 0,
+      uniqueWords: 0
     };
   }
 
   componentWillReceiveProps(props) {
     const { text } = props;
     this.setState({
-      wordsWritten: wordCounter(text)
+      wordsWritten: wordCounter(text),
+      uniqueWords: uniqueWordCounter(text)
     });
   }
 
@@ -39,6 +41,9 @@ class RampMenuDrawer extends Component {
           <div className={styles.rampWordStatsContainer}>
             <div className={styles.rampWordStatsTitle}>Words Written</div>
             <div className={styles.rampWordsWritten}>{this.state.wordsWritten}</div>
+            <Divider />
+            <div className={styles.rampWordStatsTitle}>Unique Words </div>
+            <div className={styles.rampUniqueWords}>{this.state.uniqueWords}</div>
           </div>
         </MenuItem>
       </Drawer>);

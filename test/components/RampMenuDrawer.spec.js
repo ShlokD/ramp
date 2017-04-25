@@ -16,7 +16,7 @@ describe('RampMenuDrawer', () => {
     onMenuItemClickSpy = sandbox.spy();
     props = {
       isOpen: true,
-      text: 'Some text which has words. in it',
+      text: 'Some text. it has words. in it',
       onMenuItemClick: onMenuItemClickSpy
     };
     component = shallow(<RampMenuDrawer {...props} />);
@@ -33,7 +33,8 @@ describe('RampMenuDrawer', () => {
 
   it('should set correct state', () => {
     const expectedState = {
-      wordsWritten: 0
+      wordsWritten: 0,
+      uniqueWords: 0
     };
     const expectedAssertion = true;
     const actualAssertion = areDeeplyEqual(component.state(), expectedState);
@@ -116,9 +117,21 @@ describe('RampMenuDrawer', () => {
         expect(actualAssertion, expectedAssertion);
       });
 
+      it('should render title for unique words written', () => {
+        const expectedAssertion = true;
+        const actualAssertion = contains(compositeComponent.text(), 'Unique Words');
+        expect(actualAssertion, expectedAssertion);
+      });
+
       it('should set correct text for words written', () => {
         const expectedText = '0';
         const actualText = compositeComponent.find('.rampWordsWritten').text();
+        expect(actualText).toBe(expectedText);
+      });
+
+      it('should set correct text for unique words written', () => {
+        const expectedText = '0';
+        const actualText = compositeComponent.find('.rampUniqueWords').text();
         expect(actualText).toBe(expectedText);
       });
     });
@@ -138,7 +151,8 @@ describe('RampMenuDrawer', () => {
 
       it('should set word count in state from prop text', () => {
         const expectedState = {
-          wordsWritten: 7
+          wordsWritten: 7,
+          uniqueWords: 5
         };
         const expectedValue = true;
         const actualValue = areDeeplyEqual(instance.state, expectedState);
