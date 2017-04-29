@@ -9,9 +9,9 @@ import RampMenuDrawer from './RampMenuDrawer';
 import styles from '../styles/RampTextArea.css';
 import { OPEN, CLOSE } from '../constants/stringConstants';
 import { flipState } from '../utils/stateUtils';
-import { saveFile } from '../actions/fileActions';
+import { saveFile } from '../actions';
 
-class RampTextArea extends Component {
+export class RampTextArea extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -59,7 +59,7 @@ class RampTextArea extends Component {
 
 export const mapStateToProps = state => state;
 
-export const mapDispatchToProps = (dispatch) => ({
+export const mapDispatchToProps = dispatch => ({
   handleSaveFile: (text) => dispatch(saveFile(text))
 });
 
@@ -70,5 +70,7 @@ RampTextArea.propTypes = {
 RampTextArea.defaultProps = {
   handleSaveFile: noop
 };
+
+RampTextArea.displayName = 'RampTextArea';
 
 export default connect(mapStateToProps, mapDispatchToProps)(RampTextArea);

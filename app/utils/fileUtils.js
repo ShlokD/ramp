@@ -7,15 +7,17 @@ const saveFileUtil = (text) => {
   return new Promise((resolve, reject) => {
     dialog.showSaveDialog((fileName) => {
       if (fileName === undefined) {
-        throw new Error('File name was not specified');
+        reject({
+          message: 'File name was not specified'
+        });
+      } else {
+        fs.writeFile(fileName, text, (err) => {
+          if (err) {
+            reject(err);
+          }
+          resolve(fileName);
+        });
       }
-
-      fs.writeFile(fileName, text, (err) => {
-        if (err) {
-          reject(err);
-        }
-        resolve(fileName);
-      });
     });
   });
 };

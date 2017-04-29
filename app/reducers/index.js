@@ -1,13 +1,9 @@
 // @flow
 import { combineReducers } from 'redux';
-
-const generic = (state = {}, action) => {
-  switch (action.type) {
-    default: return state;
-  }
-};
+import { fileSaveState } from './fileSaveState';
 
 const rootReducer = combineReducers({
-  generic
+  fileSaveState
 });
+
 export default rootReducer;
