@@ -1,7 +1,7 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 import sinon from 'sinon';
-import RampTextArea from '../../app/components/RampTextArea';
+import { RampTextArea } from '../../app/components/RampTextArea';
 import { OPEN, CLOSE } from '../../app/constants/stringConstants';
 import { findProp, areDeeplyEqual } from '../test-utils/testUtilities';
 

@@ -48,7 +48,7 @@ describe('RampMenuDrawer', () => {
   });
 
   it('should render 2 menuItems', () => {
-    const expectedLength = 2;
+    const expectedLength = 3;
     const actualLength = component.find('MenuItem').length;
     expect(actualLength).toBe(expectedLength);
   });
@@ -100,9 +100,9 @@ describe('RampMenuDrawer', () => {
       });
     });
 
-    describe('second menu item', () => {
+    describe('third menu item', () => {
       beforeEach(() => {
-        compositeComponent = component.find('MenuItem').at(1);
+        compositeComponent = component.find('MenuItem').at(2);
       });
 
       it('should render words written', () => {

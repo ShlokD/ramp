@@ -1,11 +1,19 @@
-// @flow
-import React, { Component } from 'react';
+import React, { PropTypes } from 'react';
+import { Provider } from 'react-redux';
 import App from './App';
 
-class Root extends Component {
-  render() {
-    return <App />;
-  }
-}
+const Root = ({ store }) => (
+  <Provider store={store}>
+    <App />
+  </Provider>
+);
+
+Root.propTypes = {
+  store: PropTypes.object
+};
+
+Root.defaultProps = {
+  store: {}
+};
 
 export default Root;

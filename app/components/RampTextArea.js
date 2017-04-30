@@ -1,16 +1,17 @@
-import React, { Component } from 'react';
+import React, { Component, PropTypes } from 'react';
+import { connect } from 'react-redux';
+
 import get from 'lodash/get';
+import noop from 'lodash/noop';
 
 import AppBar from 'material-ui/AppBar';
-
-
 import RampMenuDrawer from './RampMenuDrawer';
-
 import styles from '../styles/RampTextArea.css';
 import { OPEN, CLOSE } from '../constants/stringConstants';
 import { flipState } from '../utils/stateUtils';
+import { saveFile } from '../actions';
 
-class RampTextArea extends Component {
+export class RampTextArea extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -34,12 +35,14 @@ class RampTextArea extends Component {
 
   render() {
     const { menuState, text } = this.state;
+    const { handleSaveFile } = this.props;
     return (
       <div className={styles.rampTextAreaContainer}>
         <RampMenuDrawer
           isOpen={menuState === OPEN}
           text={menuState === OPEN ? text : ''}
           onMenuItemClick={this.onMenuButtonClick}
+          onSaveButtonClick={handleSaveFile}
         />
         <AppBar
           className={styles.rampAppBar}
@@ -54,4 +57,20 @@ class RampTextArea extends Component {
   }
 }
 
-export default RampTextArea;
+export const mapStateToProps = state => state;
+
+export const mapDispatchToProps = dispatch => ({
+  handleSaveFile: (text) => dispatch(saveFile(text))
+});
+
+RampTextArea.propTypes = {
+  handleSaveFile: PropTypes.func
+};
+
+RampTextArea.defaultProps = {
+  handleSaveFile: noop
+};
+
+RampTextArea.displayName = 'RampTextArea';
+
+export default connect(mapStateToProps, mapDispatchToProps)(RampTextArea);
