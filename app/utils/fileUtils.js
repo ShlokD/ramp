@@ -3,7 +3,6 @@ import fs from 'fs';
 
 const saveFileUtil = (text) => {
   const { dialog } = remote;
-
   return new Promise((resolve, reject) => {
     dialog.showSaveDialog((fileName) => {
       if (fileName === undefined) {

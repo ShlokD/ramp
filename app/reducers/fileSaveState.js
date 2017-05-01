@@ -24,4 +24,5 @@ export const fileSaveStateMap = {
 };
 
 
-export const fileSaveState = (state = '', action) => genericReducer(fileSaveStateMap, state, action);
+export const fileSaveState = (state = {}, action) =>
+  genericReducer(fileSaveStateMap, state, action);
