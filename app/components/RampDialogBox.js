@@ -1,5 +1,8 @@
 import React, { Component, PropTypes } from 'react';
 import isEmpty from 'lodash/isEmpty';
+import Dialog from 'material-ui/Dialog';
+import FlatButton from 'material-ui/FlatButton';
+
 import styles from '../styles/RampDialogBox.css';
 import { SAVE_FILE_IN_PROGRESS, SAVE_FILE_COMPLETED, SAVE_FILE_ERRORED, OPEN, CLOSE } from '../constants/stringConstants';
 
@@ -19,24 +22,29 @@ class RampDialogBox extends Component {
     this.onCloseDialog = this.onCloseDialog.bind(this);
   }
 
-
   componentWillReceiveProps(nextProps) {
-    if (!isEmpty(nextProps.saveState.status)) {
+    if (!isEmpty(nextProps.saveState.status)
+      && nextProps.saveState.status !== this.props.saveState.status) {
+      console.log('nextProps', nextProps);
       this.setState({
         visibility: OPEN
       });
     }
   }
 
-  shouldComponentUpdate(nextProps) {
-    return nextProps.saveState.status !== this.props.saveState.status;
-  }
-
-
   onCloseDialog() {
     this.setState({
       visibility: CLOSE
     });
+  }
+
+  renderCloseButton() {
+    return (
+      <FlatButton
+        label="Close"
+        onTouchTap={this.onCloseDialog}
+      />
+    );
   }
 
   render() {
@@ -47,16 +55,17 @@ class RampDialogBox extends Component {
       }
     } = this.props;
 
-    return visibility === OPEN ? (
-      <div className={styles.rampDialogBoxContainer}>
-        <div className={styles.rampDialogBoxMessage}>
-          {statusToMessageMap[status]}
-        </div>
-        <button className={styles.rampDialogBoxClose} onClick={this.onCloseDialog}>
-          X
-        </button>
+    return (
+      <div>
+        <Dialog
+          bodyClassName={styles.rampDialogBox}
+          titleClassName={styles.rampDialogBoxTitle}
+          open={visibility === OPEN}
+          actions={[this.renderCloseButton()]}
+          title={statusToMessageMap[status]}
+        />
       </div>
-    ) : null;
+    );
   }
 }
 

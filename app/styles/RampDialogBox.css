@@ -1,39 +1,8 @@
-.rampDialogBoxContainer {
-  position: absolute;
-  width: 300px;
-  height: 300px;
-  padding: 20px;
-  color: white;
-  background-color: #d9dbdd;
-  top: 50%;
-  left: 50%;
-  font-size: 24px;
-  font-weight: 600;
-  line-height: 300px;
-  display: flex;
-  align-items: center;
-  margin-left: -160px;
-  margin-top: -160px;
+.rampDialogBox {
+  font-size: 36px !important;
+  font-family: 'Oxygen', 'sans-serif' !important;
 }
 
-.rampDialogBoxMessage {
-  font-size: 36px;
-  margin-left: 40px;
-  line-height: 1.5;
-}
-
-.rampDialogBoxClose {
-  height: 50px;
-  width: 50px;
-  background: transparent;
-  outline: none;
-  border: none;
-  box-shadow: none;
-  color: white;
-  font-size: 36px;
-  position: relative;
-  bottom: 45%;
-  left: 5%;
-  right: 0px;
-  cursor: pointer;
+.rampDialogBoxTitle {
+  text-align: center !important;
 }
