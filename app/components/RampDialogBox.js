@@ -6,10 +6,10 @@ import FlatButton from 'material-ui/FlatButton';
 import styles from '../styles/RampDialogBox.css';
 import { SAVE_FILE_IN_PROGRESS, SAVE_FILE_COMPLETED, SAVE_FILE_ERRORED, OPEN, CLOSE } from '../constants/stringConstants';
 
-const statusToMessageMap = {
+export const statusToMessageMap = {
   [SAVE_FILE_IN_PROGRESS]: 'Saving file...',
   [SAVE_FILE_COMPLETED]: 'File Saved',
-  [SAVE_FILE_ERRORED]: 'There was an error saving the files'
+  [SAVE_FILE_ERRORED]: 'There was an error saving the file'
 };
 
 class RampDialogBox extends Component {
@@ -25,7 +25,6 @@ class RampDialogBox extends Component {
   componentWillReceiveProps(nextProps) {
     if (!isEmpty(nextProps.saveState.status)
       && nextProps.saveState.status !== this.props.saveState.status) {
-      console.log('nextProps', nextProps);
       this.setState({
         visibility: OPEN
       });
@@ -62,7 +61,7 @@ class RampDialogBox extends Component {
           titleClassName={styles.rampDialogBoxTitle}
           open={visibility === OPEN}
           actions={[this.renderCloseButton()]}
-          title={statusToMessageMap[status]}
+          title={statusToMessageMap[status] || ''}
         />
       </div>
     );
