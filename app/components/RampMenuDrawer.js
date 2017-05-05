@@ -5,6 +5,7 @@ import noop from 'lodash/noop';
 import Divider from 'material-ui/Divider';
 import ContentClear from 'material-ui/svg-icons/content/clear';
 import Done from 'material-ui/svg-icons/action/done';
+import fecha from 'fecha';
 import styles from '../styles/RampMenuDrawer.css';
 import { wordCounter, uniqueWordCounter } from '../utils/textUtils';
 
@@ -13,10 +14,16 @@ class RampMenuDrawer extends Component {
     super(props);
     this.state = {
       wordsWritten: 0,
-      uniqueWords: 0
+      uniqueWords: 0,
+      sessionDuration: 0
     };
 
     this.onSave = this.onSave.bind(this);
+    this.tick = this.tick.bind(this);
+  }
+
+  componentDidMount() {
+    this.timer = setInterval(this.tick, 1000);
   }
 
   componentWillReceiveProps(props) {
@@ -24,6 +31,16 @@ class RampMenuDrawer extends Component {
     this.setState({
       wordsWritten: wordCounter(text),
       uniqueWords: uniqueWordCounter(text)
+    });
+  }
+
+  componentWillUnmount() {
+    clearInterval(this.timer);
+  }
+
+  tick() {
+    this.setState({
+      sessionDuration: new Date() - this.props.begin
     });
   }
 
@@ -57,6 +74,8 @@ class RampMenuDrawer extends Component {
             <Divider />
             <div className={styles.rampWordStatsTitle}>Unique Words </div>
             <div className={styles.rampUniqueWords}>{this.state.uniqueWords}</div>
+            <div className={styles.rampWordStatsTitle}>Session Duration </div>
+            <div className={styles.rampSessionDuration}>{fecha.format(this.state.sessionDuration, 'mm:ss')}</div>
           </div>
         </MenuItem>
       </Drawer>);
@@ -67,14 +86,16 @@ RampMenuDrawer.propTypes = {
   isOpen: PropTypes.bool,
   text: PropTypes.string,
   onMenuItemClick: PropTypes.func,
-  onSaveButtonClick: PropTypes.func
+  onSaveButtonClick: PropTypes.func,
+  begin: PropTypes.number
 };
 
 RampMenuDrawer.defaultProps = {
   isOpen: false,
   text: '',
   onMenuItemClick: noop,
-  onSaveButtonClick: noop
+  onSaveButtonClick: noop,
+  begin: Date.now()
 };
 
 export default RampMenuDrawer;
