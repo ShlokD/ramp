@@ -2,12 +2,13 @@ import React, { Component, PropTypes } from 'react';
 import Drawer from 'material-ui/Drawer';
 import MenuItem from 'material-ui/MenuItem';
 import noop from 'lodash/noop';
+import map from 'lodash/map';
 import Divider from 'material-ui/Divider';
 import ContentClear from 'material-ui/svg-icons/content/clear';
 import Done from 'material-ui/svg-icons/action/done';
 import fecha from 'fecha';
 import styles from '../styles/RampMenuDrawer.css';
-import { wordCounter, uniqueWordCounter } from '../utils/textUtils';
+import { wordCounter, uniqueWordCounter, mostFrequentWords } from '../utils/textUtils';
 
 class RampMenuDrawer extends Component {
   constructor(props) {
@@ -15,7 +16,8 @@ class RampMenuDrawer extends Component {
     this.state = {
       wordsWritten: 0,
       uniqueWords: 0,
-      sessionDuration: 0
+      sessionDuration: 0,
+      mostFrequentWords: []
     };
 
     this.onSave = this.onSave.bind(this);
@@ -30,7 +32,8 @@ class RampMenuDrawer extends Component {
     const { text } = props;
     this.setState({
       wordsWritten: wordCounter(text),
-      uniqueWords: uniqueWordCounter(text)
+      uniqueWords: uniqueWordCounter(text),
+      mostFrequentWords: mostFrequentWords(text)
     });
   }
 
@@ -76,6 +79,11 @@ class RampMenuDrawer extends Component {
             <div className={styles.rampUniqueWords}>{this.state.uniqueWords}</div>
             <div className={styles.rampWordStatsTitle}>Session Duration </div>
             <div className={styles.rampSessionDuration}>{fecha.format(this.state.sessionDuration, 'mm:ss')}</div>
+            <div className={styles.rampWordStatsTitle}>Top Words </div>
+            {map(this.state.mostFrequentWords,
+              (frequentWord, key) => (<div key={key} className={styles.rampWordFrequencies}>
+                {frequentWord.word}, {frequentWord.wordCount}
+              </div>))}
           </div>
         </MenuItem>
       </Drawer>);

@@ -1,5 +1,6 @@
 import isEmpty from 'lodash/isEmpty';
 import reduce from 'lodash/reduce';
+import map from 'lodash/map';
 import omitBy from 'lodash/omitBy';
 
 
@@ -20,20 +21,35 @@ const wordFrequencyCounter = (wordMap, word) => {
   return wordMapCopy;
 };
 
-
-const uniqueWordCounter = text => {
+const wordStatsCounter = text => {
   if (text && text.match) {
     const words = text.match(/[\w\d]+/gi);
     const wordStats = reduce(words, wordFrequencyCounter, {});
-    const uniqueWords = omitBy(wordStats, (wordStatValue) => wordStatValue !== 1);
-    return Object.keys(uniqueWords).length;
+    return wordStats;
   }
-  return 0;
+  return {};
+};
+
+const uniqueWordCounter = text => {
+  const uniqueWordsCol = omitBy(wordStatsCounter(text), (wordStatValue) => wordStatValue !== 1);
+  return Object.keys(uniqueWordsCol).length;
+};
+
+const mostFrequentWords = text => {
+  if (!isEmpty(text)) {
+    const frequentWordsArray = map(wordStatsCounter(text),
+       (wordCount, word) => ({ word, wordCount }));
+
+    frequentWordsArray.sort((a, b) => parseInt(b.wordCount, 10) - parseInt(a.wordCount, 10));
+    return frequentWordsArray.slice(0, 3);
+  }
+  return [];
 };
 
 
 export default {
   wordCounter,
   wordFrequencyCounter,
-  uniqueWordCounter
+  uniqueWordCounter,
+  mostFrequentWords
 };

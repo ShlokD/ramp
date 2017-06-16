@@ -43,7 +43,8 @@ describe('RampMenuDrawer', () => {
     const expectedState = {
       wordsWritten: 0,
       uniqueWords: 0,
-      sessionDuration: 0
+      sessionDuration: 0,
+      mostFrequentWords: []
     };
     const expectedAssertion = true;
     const actualAssertion = areDeeplyEqual(component.state(), expectedState);
@@ -165,6 +166,12 @@ describe('RampMenuDrawer', () => {
         expect(actualAssertion, expectedAssertion);
       });
 
+      it('should render title for top words', () => {
+        const expectedAssertion = true;
+        const actualAssertion = contains(compositeComponent.text(), 'Top Words');
+        expect(actualAssertion, expectedAssertion);
+      });
+
 
       it('should set correct text for words written', () => {
         const expectedText = '0';
@@ -202,7 +209,12 @@ describe('RampMenuDrawer', () => {
         const expectedState = {
           wordsWritten: 7,
           uniqueWords: 5,
-          sessionDuration: 0
+          sessionDuration: 0,
+          mostFrequentWords: [
+            { word: 'it', wordCount: 2 },
+            { word: 'some', wordCount: 1 },
+            { word: 'text', wordCount: 1 }
+          ]
         };
         const actualState = instance.state;
         expect(areDeeplyEqual(actualState, expectedState)).toBe(true);
